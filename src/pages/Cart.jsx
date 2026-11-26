@@ -71,12 +71,12 @@ export default function Cart() {
                 <p className="muted">${item.price} each</p>
               </div>
               <div className="quantity-controls">
-                <button className="qty-btn" onClick={() => setQuantity(item.id, item.quantity - 1)} aria-label="Decrease quantity">−</button>
+                <button className="qty-btn" onClick={() => setQuantity(item.id, item.quantity - 1)} aria-label="Decrease quantity"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M5 12h14" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/></svg></button>
                 <span>{item.quantity}</span>
-                <button className="qty-btn" onClick={() => setQuantity(item.id, item.quantity + 1)} aria-label="Increase quantity">+</button>
+                <button className="qty-btn" onClick={() => setQuantity(item.id, item.quantity + 1)} aria-label="Increase quantity"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/></svg></button>
               </div>
               <p className="cart-item-total">${(item.price * item.quantity).toFixed(2)}</p>
-              <button className="remove-btn" onClick={() => removeFromCart(item.id)} aria-label={`Remove ${item.title}`}>✕</button>
+              <button className="remove-btn" onClick={() => removeFromCart(item.id)} aria-label={`Remove ${item.title}`}><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg></button>
             </div>
           ))}
         </div>

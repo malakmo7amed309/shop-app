@@ -218,3 +218,4 @@ body {
 .checkout label { display: grid; gap: 4px; font-weight: 600; font-size: 14px; }
 .err { color: var(--danger); font-weight: 400; font-size: 13px; }
 .order-box { background: #e9f6ec; border: 1px solid #b9dfc1; border-radius: 10px; padding: 14px 16px; margin: 12px 0; }
+.ico{vertical-align:-4px}.fav-btn,.qty-btn,.remove-btn{display:inline-flex;align-items:center;justify-content:center}

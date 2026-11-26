@@ -15,7 +15,7 @@ export default function ProductCard({ product, onAdd, fav, onFav }) {
         onClick={() => onFav(product.id)}
         aria-pressed={!!fav}
         aria-label={fav ? 'Remove from saved' : 'Save for later'}
-      >{fav ? '♥' : '♡'}</button>
+      ><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 21s-8-5.2-8-11a4.5 4.5 0 018-2.8A4.5 4.5 0 0120 10c0 5.800-8 11-8 11z" fill={fav ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/></svg></button>
       <div className="product-card-body">
         <Link to={`/product/${product.id}`} className="product-title">{product.title}</Link>
         <p className="product-brand">{product.brand || product.category}</p>
