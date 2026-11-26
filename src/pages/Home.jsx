@@ -13,11 +13,13 @@ export default function Home() {
   const [category, setCategory] = useState('')
   const [query, setQuery] = useState('')
   const [debouncedQuery, setDebouncedQuery] = useState('')
+  const [sort, setSort] = useState('')
   const [page, setPage] = useState(0)
   const [total, setTotal] = useState(0)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
-  const { addToCart } = useCart()
+  const { addToCart, favs, toggleFav } = useCart()
+  const [onlyFav, setOnlyFav] = useState(false)
 
   useEffect(() => {
     getCategories().then(setCategories).catch(() => {})
@@ -37,6 +39,7 @@ export default function Home() {
       skip: page * PAGE_SIZE,
       category: category || undefined,
       query: debouncedQuery || undefined,
+      sort: sort || undefined,
     })
       .then((data) => {
         if (cancelled) return
@@ -46,8 +49,9 @@ export default function Home() {
       .catch(() => !cancelled && setError('Could not load products. Check your connection and try again.'))
       .finally(() => !cancelled && setLoading(false))
     return () => { cancelled = true }
-  }, [page, category, debouncedQuery])
+  }, [page, category, debouncedQuery, sort])
 
+  const shown = onlyFav ? products.filter((p) => favs.includes(p.id)) : products
   const totalPages = Math.ceil(total / PAGE_SIZE)
 
   return (
@@ -74,19 +78,35 @@ export default function Home() {
               <option key={c} value={c}>{c.replace(/-/g, ' ')}</option>
             ))}
           </select>
+          <select
+            className="category-select"
+            value={sort}
+            onChange={(e) => { setSort(e.target.value); setPage(0) }}
+            aria-label="Sort products"
+          >
+            <option value="">Sort: featured</option>
+            <option value="price:asc">Price: low to high</option>
+            <option value="price:desc">Price: high to low</option>
+            <option value="rating:desc">Top rated</option>
+            <option value="title:asc">Name A to Z</option>
+          </select>
+          <label className="fav-toggle">
+            <input type="checkbox" checked={onlyFav} onChange={(e) => setOnlyFav(e.target.checked)} />
+            Saved only ({favs.length})
+          </label>
         </div>
       </section>
       {loading ? (
         <Spinner />
       ) : error ? (
         <ErrorBox message={error} onRetry={() => setPage((p) => p)} />
-      ) : products.length === 0 ? (
-        <p className="empty-state">No products match your search.</p>
+      ) : shown.length === 0 ? (
+        <p className="empty-state">{onlyFav ? 'None of the products on this page are saved yet.' : 'No products match your search.'}</p>
       ) : (
         <>
           <div className="product-grid">
-            {products.map((product) => (
-              <ProductCard key={product.id} product={product} onAdd={addToCart} />
+            {shown.map((product) => (
+              <ProductCard key={product.id} product={product} onAdd={addToCart} fav={favs.includes(product.id)} onFav={toggleFav} />
             ))}
           </div>
           {totalPages > 1 && (

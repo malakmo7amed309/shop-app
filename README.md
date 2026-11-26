@@ -8,6 +8,8 @@ product details, and manage a shopping cart that survives page reloads.
 
 ## Features
 
+- Sort by price, rating or name, plus a Saved (wishlist) heart kept in `localStorage`
+- Promo code (`WELCOME10`), shipping rule (free over $50) and a validated demo checkout that stores the last order
 - Product catalog with pagination, powered by the live DummyJSON API
 - Live search across product titles and descriptions
 - Category filtering (beauty, fragrances, furniture, groceries and more)

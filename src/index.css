@@ -1,11 +1,11 @@
 :root {
-  --bg: #f6f7fb;
+  --bg: #fbf7f2;
   --surface: #ffffff;
-  --text: #1c2230;
-  --muted: #68738a;
-  --accent: #2563eb;
-  --accent-hover: #1d4fd7;
-  --border: #e4e8f0;
+  --text: #1f1a17;
+  --muted: #6f645b;
+  --accent: #e4572e;
+  --accent-hover: #c7431f;
+  --border: #eadfd3;
   --star: #f59e0b;
   --danger: #dc2626;
 }
@@ -201,3 +201,20 @@ body {
 @media (max-width: 520px) {
   .product-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
 }
+
+/* v2 */
+.navbar { background: #1f1a17; border-bottom: 0; }
+.brand { color: #fff; letter-spacing: .5px; }
+.nav-links a { color: #f3e9de; }
+.nav-links a.active { color: #ffb199; }
+.product-card { position: relative; }
+.fav-btn { position: absolute; top: 10px; right: 10px; width: 36px; height: 36px; border-radius: 50%; border: 0; background: #fff; color: var(--accent); font-size: 20px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,.15); }
+.fav-btn.on { background: var(--accent); color: #fff; }
+.fav-toggle { display: flex; align-items: center; gap: 6px; font-weight: 600; }
+.small { font-size: 13px; margin: 6px 0; }
+.coupon { display: flex; gap: 8px; margin: 10px 0; }
+.coupon input, .checkout input { width: 100%; padding: 9px 12px; border: 1px solid var(--border); border-radius: 8px; font: inherit; }
+.checkout { display: grid; gap: 10px; margin-top: 12px; }
+.checkout label { display: grid; gap: 4px; font-weight: 600; font-size: 14px; }
+.err { color: var(--danger); font-weight: 400; font-size: 13px; }
+.order-box { background: #e9f6ec; border: 1px solid #b9dfc1; border-radius: 10px; padding: 14px 16px; margin: 12px 0; }

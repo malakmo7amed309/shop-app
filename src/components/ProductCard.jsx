@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-export default function ProductCard({ product, onAdd }) {
+export default function ProductCard({ product, onAdd, fav, onFav }) {
   const discounted = product.discountPercentage
     ? (product.price * (1 - product.discountPercentage / 100)).toFixed(2)
     : null
@@ -10,6 +10,12 @@ export default function ProductCard({ product, onAdd }) {
       <Link to={`/product/${product.id}`} className="product-thumb-link">
         <img src={product.thumbnail} alt={product.title} loading="lazy" />
       </Link>
+      <button
+        className={`fav-btn${fav ? ' on' : ''}`}
+        onClick={() => onFav(product.id)}
+        aria-pressed={!!fav}
+        aria-label={fav ? 'Remove from saved' : 'Save for later'}
+      >{fav ? '♥' : '♡'}</button>
       <div className="product-card-body">
         <Link to={`/product/${product.id}`} className="product-title">{product.title}</Link>
         <p className="product-brand">{product.brand || product.category}</p>

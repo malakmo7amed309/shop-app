@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useReducer } from 'react'
+import { createContext, useContext, useEffect, useReducer, useState } from 'react'
 
 const CartContext = createContext(null)
 const STORAGE_KEY = 'shop-app-cart'
@@ -44,6 +44,12 @@ export function CartProvider({ children }) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(items))
   }, [items])
 
+  const [favs, setFavs] = useState(() => {
+    try { return JSON.parse(localStorage.getItem('shop-app-favs')) || [] } catch { return [] }
+  })
+  useEffect(() => { localStorage.setItem('shop-app-favs', JSON.stringify(favs)) }, [favs])
+  const toggleFav = (id) => setFavs((f) => (f.includes(id) ? f.filter((x) => x !== id) : [...f, id]))
+
   const addToCart = (product) => dispatch({ type: 'add', product })
   const removeFromCart = (id) => dispatch({ type: 'remove', id })
   const setQuantity = (id, quantity) => dispatch({ type: 'setQuantity', id, quantity })
@@ -53,7 +59,7 @@ export function CartProvider({ children }) {
   const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0)
 
   return (
-    <CartContext.Provider value={{ items, addToCart, removeFromCart, setQuantity, clearCart, count, total }}>
+    <CartContext.Provider value={{ favs, toggleFav, items, addToCart, removeFromCart, setQuantity, clearCart, count, total }}>
       {children}
     </CartContext.Provider>
   )
